@@ -50,4 +50,10 @@ class Buku
             ':isbn'     => $data['isbn']
         ]);
     }
+
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM buku WHERE id = :id');
+        return $stmt->execute([':id' => $id]);
+    }
 }

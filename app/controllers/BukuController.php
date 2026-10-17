@@ -100,4 +100,15 @@ class BukuController
             $this->redirect('edit&id=' . $id, 'error', $this->dbMessage($e));
         }
     }
+
+    public function delete(): void
+    {
+        $id = (int) ($_POST['id'] ?? 0);
+        try {
+            $this->model->delete($id);
+            $this->redirect('index', 'success', 'Data buku berhasil dihapus.');
+        } catch (PDOException $e) {
+            $this->redirect('index', 'error', 'Data buku gagal dihapus.');
+        }
+    }
 }

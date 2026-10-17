@@ -6,7 +6,7 @@
         <h1>Daftar Buku</h1>
         <p class="subtitle">Total <?= count($buku) ?> buku dalam koleksi</p>
     </div>
-        <a href="index.php?page=buku&action=create" class="btn btn-add">+ Tambah Buku</a>
+    <a href="index.php?page=buku&action=create" class="btn btn-add">+ Tambah Buku</a>
 </div>
 
 <?php require __DIR__ . '/../partials/flash.php'; ?>
@@ -36,6 +36,12 @@
                     <td class="isbn"><?= htmlspecialchars($b['isbn']) ?></td>
                     <td class="actions">
                         <a href="index.php?page=buku&action=edit&id=<?= (int) $b['id'] ?>" class="btn btn-sm btn-edit">Edit</a>
+                        <form method="post" action="index.php?page=buku&action=delete"
+                              class="inline-form"
+                              onsubmit="return confirm('Hapus buku ini?')">
+                            <input type="hidden" name="id" value="<?= (int) $b['id'] ?>">
+                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                        </form>
                     </td>
                 </tr>
                 <?php endforeach; ?>
