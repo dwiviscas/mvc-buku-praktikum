@@ -10,4 +10,18 @@ class Buku
         );
         return $stmt->fetchAll();
     }
+
+    public function insert(array $data): bool
+    {
+        $sql = 'INSERT INTO buku (judul, penulis, penerbit, tahun_terbit, isbn)
+                VALUES (:judul, :penulis, :penerbit, :tahun, :isbn)';
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            ':judul'    => $data['judul'],
+            ':penulis'  => $data['penulis'],
+            ':penerbit' => $data['penerbit'],
+            ':tahun'    => $data['tahun_terbit'],
+            ':isbn'     => $data['isbn']
+        ]);
+    }
 }

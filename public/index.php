@@ -23,8 +23,17 @@ if ($page !== 'buku') {
     exit('Halaman tidak ditemukan.');
 }
 
+
+if (in_array($action, ['store', 'update', 'delete'], true)
+    && $_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    exit('Metode tidak diizinkan.');
+}
+
 match ($action) {
     'index'  => $controller->index(),
+    'create' => $controller->create(),
+    'store'  => $controller->store(),
     default  => (function () {
         http_response_code(404);
         exit('Action tidak ditemukan.');

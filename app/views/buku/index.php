@@ -6,7 +6,7 @@
         <h1>Daftar Buku</h1>
         <p class="subtitle">Total <?= count($buku) ?> buku dalam koleksi</p>
     </div>
-    <!-- TOMBOL_TAMBAH -->
+        <a href="index.php?page=buku&action=create" class="btn btn-add">+ Tambah Buku</a>
 </div>
 
 <?php require __DIR__ . '/../partials/flash.php'; ?>
