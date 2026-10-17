@@ -72,4 +72,32 @@ class BukuController
         header('Location: index.php?page=buku&action=' . $action);
         exit;
     }
+
+    public function edit(): void
+    {
+        $id = (int) ($_GET['id'] ?? 0);
+        $buku = $this->model->findById($id);
+
+        if (!$buku) {
+            http_response_code(404);
+            exit('Data buku tidak ditemukan.');
+        }
+        require __DIR__ . '/../views/buku/edit.php';
+    }
+
+    public function update(): void
+    {
+        $id = (int) ($_POST['id'] ?? 0);
+        [$data, $error] = $this->validateInput($_POST);
+        if ($error) {
+            $this->redirect('edit&id=' . $id, 'error', $error);
+        }
+
+        try {
+            $this->model->update($id, $data);
+            $this->redirect('index', 'success', 'Data buku berhasil diperbarui.');
+        } catch (PDOException $e) {
+            $this->redirect('edit&id=' . $id, 'error', $this->dbMessage($e));
+        }
+    }
 }

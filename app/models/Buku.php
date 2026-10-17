@@ -24,4 +24,30 @@ class Buku
             ':isbn'     => $data['isbn']
         ]);
     }
+
+    public function findById(int $id): array|false
+    {
+        $stmt = $this->db->prepare(
+            'SELECT id, judul, penulis, penerbit, tahun_terbit, isbn FROM buku WHERE id = :id'
+        );
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch();
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        $sql = 'UPDATE buku
+                SET judul = :judul, penulis = :penulis, penerbit = :penerbit,
+                    tahun_terbit = :tahun, isbn = :isbn
+                WHERE id = :id';
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            ':id'       => $id,
+            ':judul'    => $data['judul'],
+            ':penulis'  => $data['penulis'],
+            ':penerbit' => $data['penerbit'],
+            ':tahun'    => $data['tahun_terbit'],
+            ':isbn'     => $data['isbn']
+        ]);
+    }
 }

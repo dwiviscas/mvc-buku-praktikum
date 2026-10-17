@@ -22,6 +22,7 @@
                     <th>Penerbit</th>
                     <th>Tahun</th>
                     <th>ISBN</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,10 +34,13 @@
                     <td><?= htmlspecialchars($b['penerbit']) ?></td>
                     <td><span class="badge"><?= htmlspecialchars($b['tahun_terbit']) ?></span></td>
                     <td class="isbn"><?= htmlspecialchars($b['isbn']) ?></td>
+                    <td class="actions">
+                        <a href="index.php?page=buku&action=edit&id=<?= (int) $b['id'] ?>" class="btn btn-sm btn-edit">Edit</a>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
                 <?php if (empty($buku)): ?>
-                <tr><td colspan="6" class="empty">Belum ada data buku.</td></tr>
+                <tr><td colspan="7" class="empty">Belum ada data buku.</td></tr>
                 <?php endif; ?>
             </tbody>
         </table>
